@@ -50,12 +50,11 @@ def Listen(MyText,Check,ask):
 				audio2 = r.listen(source2)
 				# Using google to recognize audio
 
-				print('\n...Recognizing...\n\n...Fetching informations from database...\n\n')
 				MyText = r.recognize_google(audio2)
 				quitLoop=0
 				while quitLoop==0:
 
-					print('Do you want to search [',MyText,'] ? If yes, speak YES, or speak NO to speak your search query again')
+					print('\nDo you want to search [',MyText,'] ? If yes, speak YES, or speak NO to speak your search query again')
 					r.adjust_for_ambient_noise(source2, duration=1.0)
 					audio2 = r.listen(source2)
 					Check=r.recognize_google(audio2)
@@ -73,18 +72,18 @@ def Listen(MyText,Check,ask):
 
 			
 		except sr.RequestError as e:
-			print("Could not request results; {0}".format(e))
+			print("\nCould not request results; {0}\n".format(e))
 			ask=MyText
 			return ask
 		
 		except sr.UnknownValueError:
-			print("unknown error occurred")
+			print("\nUnknown error occurred\n")
 			ask=MyText
 			return ask
 
 
 
-openai.api_key = '<Your_Own_API_Key>'
+openai.api_key = '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'
 messages = [ {"role": "system", "content":
 			"You are a intelligent assistant."} ]
 
