@@ -23,7 +23,7 @@ SpeakText('You can write your query or speak to search, Do you like writing or r
 
 
 def Listen(MyText,Check,ask):
-	x=input('\nIf you want to type your query then type here  or avoid this and press ENTER: ')
+	x=input('\nSohan: If you want to type your query then type here  or avoid this and press ENTER: ')
 	if len(x)!=0:
 		Check='YES'
 		ask=x
@@ -46,7 +46,7 @@ def Listen(MyText,Check,ask):
 				r.adjust_for_ambient_noise(source2, duration=1.0)
 			
 				#listens for the user's input
-				print('\nNow Speak...listening...\n')
+				print('\nSohan: Now Speak...I am listening...\n')
 				audio2 = r.listen(source2)
 				# Using google to recognize audio
 
@@ -54,7 +54,7 @@ def Listen(MyText,Check,ask):
 				quitLoop=0
 				while quitLoop==0:
 
-					print('\nDo you want to search [',MyText,'] ? If yes, speak YES, or speak NO to speak your search query again')
+					print('Sohan: Do you want to search [',MyText,'] ? If yes, speak YES, or speak NO to speak your search query again')
 					r.adjust_for_ambient_noise(source2, duration=1.0)
 					audio2 = r.listen(source2)
 					Check=r.recognize_google(audio2)
@@ -72,18 +72,18 @@ def Listen(MyText,Check,ask):
 
 			
 		except sr.RequestError as e:
-			print("\nCould not request results; {0}\n".format(e))
+			print("\nSohan: Could not request results; {0}\n".format(e))
 			ask=MyText
 			return ask
 		
 		except sr.UnknownValueError:
-			print("\nUnknown error occurred\n")
+			print("\nSohan: Unknown error occurred\n")
 			ask=MyText
 			return ask
 
 
 
-openai.api_key = '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'
+openai.api_key = '< put-your-own-openAI-API-key-and-update-the-key-once-a-week >'
 messages = [ {"role": "system", "content":
 			"You are a intelligent assistant."} ]
 
@@ -91,7 +91,6 @@ messages = [ {"role": "system", "content":
 Ask=str(Listen('Hello','NO','Hello'))
 
 while Ask!='NONE':
-	print('\n')
 	message = Ask
 	if message:
 		messages.append(
@@ -100,8 +99,8 @@ while Ask!='NONE':
 		chat = openai.ChatCompletion.create(
 			model="gpt-3.5-turbo", messages=messages
 		)
-	reply = chat.choices[0].message.content
-	print(f"Sohan: {reply}")
+	reply =chat.choices[0].message.content
+	print(f"\nSohan: {reply}")
 	SpeakText(reply)
 	messages.append({"role": "assistant", "content": reply})
 	Ask=str(Listen('Hello','NO','Hello'))
